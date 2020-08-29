@@ -5,16 +5,14 @@ import 'firebase/firestore';
 
 // Firebase configuration
 let firebaseConfig: any = {
-  apiKey: 'AIzaSyAuq8KSe5pyxqEH8n4GbFcfXHw8RlmFg6U',
-  authDomain: 'its-cngei-genova.firebaseapp.com',
-  databaseURL: 'https://its-cngei-genova.firebaseio.com',
-  projectId: 'its-cngei-genova',
-  storageBucket: 'its-cngei-genova.appspot.com',
-  messagingSenderId: '495221747451',
-  appId: '1:495221747451:web:5103d956f7c62972ee0a5e',
-  measurementId: 'G-EET24DJPS5'
+  apiKey: 'AIzaSyD7O5PLahPpA7R-2FVzdxKv0NJoCbkV7r4',
+  authDomain: 'appe-emil.firebaseapp.com',
+  databaseURL: 'https://appe-emil.firebaseio.com',
+  projectId: 'appe-emil',
+  storageBucket: 'appe-emil.appspot.com',
+  messagingSenderId: '683727025427',
+  appId: '1:683727025427:web:b3154bf6a08548671d16e6'
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 export default firebase;
