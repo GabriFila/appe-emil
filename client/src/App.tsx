@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeOptions, ThemeProvider } from '@material-ui/core/styles';
-import amber from '@material-ui/core/colors/amber';
-import green from '@material-ui/core/colors/green';
+import orange from '@material-ui/core/colors/orange';
+import lightBlue from '@material-ui/core/colors/lightBlue';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AuthProvider from './context/AuthContext';
 import Menu from './components/TopBar';
@@ -13,8 +13,8 @@ import StorageContextProvider from './context/StorageContext';
 
 const baseThemeConfig: ThemeOptions = {
   palette: {
-    primary: green,
-    secondary: amber
+    primary: lightBlue,
+    secondary: orange
   },
   overrides: {
     MuiCssBaseline: {
@@ -31,7 +31,7 @@ const baseThemeConfig: ThemeOptions = {
         },
         '*::-webkit-scrollbar-thumb': {
           borderRadius: 10,
-          backgroundColor: green[400]
+          backgroundColor: lightBlue[400]
         },
         'input::-webkit-inner-spin-button': {
           '-webkit-appearance': 'none',
