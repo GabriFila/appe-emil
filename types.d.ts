@@ -51,7 +51,6 @@ export interface IStorageDish extends IOrderDish {
 
 export type OrderStatus = "pending" | "active" | "completed" | "deleted";
 export interface IOrder {
-  people: number;
   orderNum: number;
   status: OrderStatus;
   waiterName: string; // display name of waiter
@@ -72,6 +71,7 @@ export interface IDBCourse extends ICourse {
   orderNum: number;
   status: CourseStatus;
   note: string;
+  tableNum:number;
 }
 
 interface IInstantOrder {

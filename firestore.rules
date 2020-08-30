@@ -28,7 +28,7 @@ service cloud.firestore {
           }
           match /courses/{courseId} {
             allow get: if false;
-            allow list: if hasRole('sala') || hasRole('cassa') || hasRole('smazzo');
+            allow list: if hasRole('sala') || hasRole('cassa') || hasRole('smazzo') || hasRole('cucina-primi') || hasRole('cucina-secondi') || hasRole('cucina-bar');
             allow write: if false;
             allow create: if false;
             allow update: if courseCanBeUpdatedByWaiter() || courseCanBeUpdatedByKitchen() || courseCanBeUpdatedByCashRegisterAndHub();

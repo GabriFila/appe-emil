@@ -7,16 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import DoneIcon from '@material-ui/icons/Done';
-import PrintIcon from '@material-ui/icons/Print';
 import ResetIcon from '@material-ui/icons/Replay';
-import { StorageContext } from '../../context/StorageContext';
 import { CashRegisterContext } from '../../context/CashRegisterContext';
 import { ActionType } from '../../reducers/CashRegisterReducer';
-import printOrder from '../../helpers/printOrder';
 import { functions } from '../../fbConfig';
 import { ServiceContext } from '../../context/ServiceContext';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import { disableUIOnCondition } from '../../helpers/disableUIOnCondition';
 
 const createOrder = functions.httpsCallable('createOrder');
@@ -84,14 +79,13 @@ const CashRegisterConsole: React.FunctionComponent = () => {
   const classes = useStyle();
   const theme = useTheme();
 
-  const { storageCourses } = useContext(StorageContext);
   const { serviceId } = useContext(ServiceContext);
 
   const { state, dispatch } = useContext(CashRegisterContext);
 
   const {
     courses,
-    people,
+    tableNum,
     revenue,
     orderNote,
     orderNum,
@@ -107,7 +101,7 @@ const CashRegisterConsole: React.FunctionComponent = () => {
     dispatch({
       type: ActionType.SendOrder
     });
-    createOrder({ revenue, courses, people, serviceId, orderNote })
+    createOrder({ revenue, courses, tableNum, serviceId, orderNote })
       .then(res => {
         const { outcome, newOrderNum } = res.data;
         if (outcome) {
@@ -137,19 +131,9 @@ const CashRegisterConsole: React.FunctionComponent = () => {
         style={disableUIOnCondition(waitingToEndOrder, true)}
       >
         <div className={classes.peopleSelector}>
-          <IconButton
-            onClick={() => {
-              dispatch({
-                type: ActionType.AddPerson
-              });
-            }}
-            color="primary"
-          >
-            <AddIcon style={{ flex: 1 }} />
-          </IconButton>
           <TextField
             type="number"
-            value={people || ''}
+            value={tableNum || ''}
             variant="outlined"
             margin="dense"
             inputProps={{ min: 0, style: { textAlign: 'center' } }}
@@ -162,17 +146,6 @@ const CashRegisterConsole: React.FunctionComponent = () => {
               });
             }}
           />
-          <IconButton
-            disabled={people === undefined || people === 0}
-            onClick={() => {
-              dispatch({
-                type: ActionType.RemovePerson
-              });
-            }}
-            color="secondary"
-          >
-            <RemoveIcon style={{ flex: 1 }} />
-          </IconButton>
         </div>
         <Typography variant="h6" color="secondary">
           € {revenue}
@@ -181,7 +154,7 @@ const CashRegisterConsole: React.FunctionComponent = () => {
           className={classes.doneBtn}
           color="primary"
           disabled={
-            courses.length === 0 || people === 0 || people === undefined
+            courses.length === 0 || tableNum === 0 || tableNum === undefined
           }
           onClick={sendOrder}
         >
@@ -201,16 +174,6 @@ const CashRegisterConsole: React.FunctionComponent = () => {
         >
           {orderNum || 123}
         </Typography>
-        <IconButton
-          className={classes.doneBtn}
-          color="primary"
-          disabled={orderNum === undefined}
-          onClick={() =>
-            printOrder(storageCourses, courses, orderNum, revenue, people)
-          }
-        >
-          <PrintIcon fontSize="large" />
-        </IconButton>
         <IconButton
           className={classes.doneBtn}
           color="secondary"

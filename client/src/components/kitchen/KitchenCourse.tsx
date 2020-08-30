@@ -14,6 +14,7 @@ interface IKitchenCourse {
   courseId: string;
   note: string;
   dishes: IDish[];
+  tableNum: number;
 }
 
 const useStyle = makeStyles(theme =>
@@ -40,7 +41,7 @@ const useStyle = makeStyles(theme =>
 
 const KitchenCourse: React.FunctionComponent<IKitchenCourse> = props => {
   const classes = useStyle();
-  const { orderNum, note, dishes, courseId } = props;
+  const { orderNum, note, dishes, courseId, tableNum } = props;
   const { serviceRef } = useContext(ServiceContext);
 
   const makeCourseReady = () => {
@@ -60,6 +61,9 @@ const KitchenCourse: React.FunctionComponent<IKitchenCourse> = props => {
   return (
     <Paper elevation={4} className={classes.course}>
       <div className={classes.topRow}>
+        <Typography color="primary" variant="h5">
+          T:{tableNum}
+        </Typography>
         <Typography color="primary" variant="h5">
           O:{orderNum}
         </Typography>

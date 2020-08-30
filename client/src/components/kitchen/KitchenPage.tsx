@@ -79,13 +79,14 @@ function KitchenPage() {
           <ResponsiveGrid
             elementsList={courses
               .sort((a, b) => a.orderNum - b.orderNum)
-              .map(({ dishes, orderNum, courseId, note }) => (
+              .map(({ dishes, orderNum, courseId, note, tableNum }) => (
                 <KitchenCourse
                   key={courseId}
                   dishes={dishes}
                   orderNum={orderNum}
                   courseId={courseId}
                   note={note}
+                  tableNum={tableNum}
                 />
               ))}
           />

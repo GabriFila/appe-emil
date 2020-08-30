@@ -28,7 +28,7 @@ export interface ICashRegisterReducerState {
   orderNum: number | undefined;
   orderNote: string;
   courses: IOrderCourse[];
-  people: number;
+  tableNum: number;
   revenue: number;
   waitingOrderRes: boolean;
   waitingToEndOrder: boolean;
@@ -51,7 +51,7 @@ export interface ICashRegisterAction {
 export const initialCashRegsiterState: ICashRegisterReducerState = {
   orderNum: undefined,
   orderNote: '',
-  people: 0,
+  tableNum: 0,
   courses: [],
   revenue: 0,
   waitingOrderRes: false,
@@ -175,7 +175,7 @@ const CashRegisterReducer: React.Reducer<
     case ActionType.SendOrder:
       return { ...state, waitingOrderRes: true };
     case ActionType.SetPeople:
-      return { ...state, people: action.payload.people };
+      return { ...state, tableNum: action.payload.people };
     case ActionType.OrderReceived:
       return {
         ...state,
@@ -186,10 +186,10 @@ const CashRegisterReducer: React.Reducer<
     case ActionType.AddPerson:
       return {
         ...state,
-        people: state.people + 1
+        tableNum: state.tableNum + 1
       };
     case ActionType.RemovePerson:
-      return { ...state, people: state.people - 1 };
+      return { ...state, tableNum: state.tableNum - 1 };
     case ActionType.InstantOrderCreated:
       return {
         ...state,
@@ -205,7 +205,7 @@ const CashRegisterReducer: React.Reducer<
       return {
         orderNum: undefined,
         orderNote: '',
-        people: 0,
+        tableNum: 0,
         courses: [],
         revenue: 0,
         waitingOrderRes: false,

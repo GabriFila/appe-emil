@@ -1,6 +1,7 @@
 tasks:
   - init: cd client && npm i
   - init: cd functions && npm i && exit
+  - init: npm i -g firebase-tools
 
 vscode:
   extensions:
@@ -12,6 +13,5 @@ vscode:
     - wmaurer.change-case@1.0.0:EFbL568cjs07Ajw2vuXcpw==
     - maptz.camelcasenavigation@1.1.3:xBNgbjnhbTFpUpCrhaZu/A==
     - eamodio.gitlens@10.2.1:WIWu3zHU4VPT8r/v866LUw==
-    - GitHub.vscode-pull-request-github@0.19.0:7pSNxpy7k9vqog/b6PEJ3w==
     - ExodiusStudios.comment-anchors@1.8.0:kHZMPRTBilSxvpDM8DetyA==
     - vscode.git@1.48.1:a+3btv1sZOaRhNKJx9Qw1g==

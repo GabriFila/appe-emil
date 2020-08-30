@@ -19,6 +19,7 @@ export enum RoleName {
   KitchenFirst = 'cucina-primi',
   KitchenSecond = 'cucina-secondi',
   KitchenBar = 'cucina-bar',
+  KitchenFood = 'cucina-cibo',
   Waiter = 'sala',
   Hub = 'smazzo'
 }
@@ -58,6 +59,13 @@ export const ROUTE_ROLES: IRoleRouteInfo[] = [
     title: 'Cucina bar',
     requiredRole: RoleName.KitchenBar,
     path: '/cucina/bar',
+    component: KitchenPage
+  },
+  ,
+  {
+    title: 'Cucina cibo',
+    requiredRole: RoleName.KitchenFood,
+    path: '/cucina/cibo',
     component: KitchenPage
   },
   {

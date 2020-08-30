@@ -111,14 +111,14 @@ export const createOrder = functions
     }
 
     const courses = data.courses as IOrderCourse[];
-    const people = data.people as number;
+    const tableNum = data.tableNum as number;
     const revenue = data.revenue as number;
     const orderNote = data.orderNote as string;
     const currentServiceId = data.serviceId;
     const year = new Date().getFullYear();
 
     if (
-      [courses, people, revenue, orderNote, currentServiceId, year].some(
+      [courses, tableNum, revenue, orderNote, currentServiceId, year].some(
         elm => elm === undefined
       )
     ) {
@@ -159,7 +159,7 @@ export const createOrder = functions
             const service = serviceSnap.data() as IService;
 
             newOrderNum = service.lastOrderNum + 1;
-            const { totalRevenue, totalOrders, totalPeople } = service;
+            const { totalRevenue, totalOrders } = service;
 
             const storage = storageSnap.data() as IStorage;
             const { storageCourses } = storage;
@@ -170,8 +170,7 @@ export const createOrder = functions
               {
                 lastOrderNum: newOrderNum,
                 totalRevenue: totalRevenue + revenue,
-                totalOrders: totalOrders + 1,
-                totalPeople: totalPeople + people
+                totalOrders: totalOrders + 1
               },
               { merge: true }
             ).set(currentStorageRef, { storageCourses });
@@ -184,16 +183,17 @@ export const createOrder = functions
             courseName,
             kitchen,
             note,
-            status: 'wait',
+            status: 'prep',
             waiterId: null,
+            tableNum,
             dishes: dishes.map(({ qt, shortName }) => ({ qt, shortName }))
           })
         );
         const newOrder = {
           orderNum: newOrderNum,
-          status: 'pending',
+          status: 'active',
           revenue,
-          people,
+          tableNum,
           note: orderNote
         };
         const toFullfill = newCourses.map(newCourse =>
@@ -447,6 +447,7 @@ export const addCoursesToOrder = functions
             note,
             status: 'wait',
             waiterId,
+            tableNum: 0,
             dishes: dishes.map(({ qt, shortName }) => ({ qt, shortName }))
           })
         );

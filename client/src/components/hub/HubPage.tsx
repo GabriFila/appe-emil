@@ -48,7 +48,7 @@ function HubPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [viewSelected, setViewSelected] = useState(0);
 
-  const kitchens = ['Primi', 'Secondi', 'Bar'];
+  const kitchens = ['Cibo', 'Bar'];
 
   useEffect(() => {
     let unsubscribe: () => void;
