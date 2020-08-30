@@ -12,26 +12,43 @@ export const StorageContext = createContext<IStorageContext>({
   storageRef: null
 });
 
-const StorageContextProvider: React.FunctionComponent = ({ children }) => {
+interface IStorageContextProviderProps {
+  needsLive: boolean;
+}
+const StorageContextProvider: React.FunctionComponent<IStorageContextProviderProps> = props => {
+  const { children, needsLive } = props;
   const [storageCourses, setStorageCourses] = useState<IStorageCourse[]>([]);
   const [storageRef, setStroageRef] = useState(getStorageRef);
   const { authPhase } = useContext(AuthContext);
-
+  const updateStorage = (
+    snap: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+  ) => {
+    setStroageRef(snap.ref);
+    setStorageCourses([...(snap.data() as IStorage)?.storageCourses]);
+  };
   useEffect(() => {
     let unsubscribe = () => {};
     if (authPhase === 'in') {
-      unsubscribe = getStorageRef().onSnapshot(
-        snap => {
-          setStroageRef(snap.ref);
-          setStorageCourses([...(snap.data() as IStorage)?.storageCourses]);
-        },
-        err =>
+      if (needsLive) {
+        unsubscribe = getStorageRef().onSnapshot(updateStorage, err => {
           console.error(
             'ERROR IN GETTINFG STORAGE INFO',
             err.message,
             err.stack
-          )
-      );
+          );
+        });
+      } else {
+        getStorageRef()
+          .get()
+          .then(updateStorage)
+          .catch(err => {
+            console.error(
+              'ERROR IN GETTINFG STORAGE INFO',
+              err.message,
+              err.stack
+            );
+          });
+      }
     } else {
       setStorageCourses([]);
       setStroageRef(null);
@@ -39,7 +56,7 @@ const StorageContextProvider: React.FunctionComponent = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, [authPhase]);
+  }, [authPhase, needsLive]);
 
   return (
     <StorageContext.Provider value={{ storageCourses, storageRef }}>
@@ -47,13 +64,5 @@ const StorageContextProvider: React.FunctionComponent = ({ children }) => {
     </StorageContext.Provider>
   );
 };
-
-// const withStorageContext = (BaseComponent: React.FunctionComponent) => (
-//   props: any
-// ) => (
-//   <StorageContextProvider>
-//     <BaseComponent {...props} />
-//   </StorageContextProvider>
-// );
 
 export default StorageContextProvider;

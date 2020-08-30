@@ -29,56 +29,73 @@ export const ROUTE_ROLES: IRoleRouteInfo[] = [
     title: 'Admin',
     requiredRole: RoleName.Admin,
     path: '/admin',
-    component: AdminPage
+    component: AdminPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
   {
     title: 'Cassa',
     requiredRole: RoleName.CashRegister,
     path: '/cassa',
-    component: CashRegisterPage
+    component: CashRegisterPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
   {
     title: 'Cassa bar',
     requiredRole: RoleName.InstantCashRegister,
     path: '/cassaBar',
-    component: InstantCashRegisterPage
+    component: InstantCashRegisterPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
   {
     title: 'Cucina primi',
     requiredRole: RoleName.KitchenFirst,
     path: '/cucina/primi',
-    component: KitchenPage
+    component: KitchenPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
   {
     title: 'Cucina secondi',
     requiredRole: RoleName.KitchenSecond,
     path: '/cucina/secondi',
-    component: KitchenPage
+    component: KitchenPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
   {
     title: 'Cucina bar',
     requiredRole: RoleName.KitchenBar,
     path: '/cucina/bar',
-    component: KitchenPage
+    component: KitchenPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
-  ,
   {
     title: 'Cucina cibo',
     requiredRole: RoleName.KitchenFood,
     path: '/cucina/cibo',
-    component: KitchenPage
+    component: KitchenPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
   {
     title: 'Sala',
     requiredRole: RoleName.Waiter,
     path: '/cameriere',
-    component: WaiterPage
+    component: WaiterPage,
+    needServiceLive: false,
+    needStorageLive: false
   },
   {
     requiredRole: RoleName.Hub,
     title: 'Smazzo',
+    path: '/smazzo',
     component: HubPage,
-    path: '/smazzo'
+    needServiceLive: false,
+    needStorageLive: false
   }
 ];
 

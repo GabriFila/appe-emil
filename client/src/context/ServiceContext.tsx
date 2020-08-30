@@ -18,7 +18,12 @@ export const ServiceContext = createContext<IServiceContext>({
   isServiceActive: undefined
 });
 
-const ServiceContextProvider: React.FunctionComponent = ({ children }) => {
+interface IServiceContextProviderProps {
+  needsLive: boolean;
+}
+
+const ServiceContextProvider: React.FunctionComponent<IServiceContextProviderProps> = props => {
+  const { children, needsLive } = props;
   const [service, setCurrentService] = useState<IService | undefined>(
     undefined
   );
@@ -28,35 +33,46 @@ const ServiceContextProvider: React.FunctionComponent = ({ children }) => {
   const [serviceId, setCurrentServiceId] = useState('');
   const [isServiceActive, setIsServiceActive] = useState<boolean>(undefined);
   const { authPhase } = useContext(AuthContext);
-
+  const updateService = (
+    snaps: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+  ) => {
+    if (snaps.size === 0 || snaps.size > 1) {
+      // TODO add error to tell user
+      setCurrentService(undefined);
+      setIsServiceActive(false);
+    } else
+      snaps.forEach(snap => {
+        setCurrentService(snap.data() as IService);
+        setCurrentServiceRef(snap.ref);
+        setCurrentServiceId(snap.id);
+        setIsServiceActive(true);
+      });
+  };
   useEffect(() => {
     let unsubscribeService = () => {};
     if (authPhase === 'in') {
-      unsubscribeService = getServiceRef().onSnapshot(
-        snaps => {
-          if (snaps.size === 0 || snaps.size > 1) {
-            // TODO add error to tell user
-            setCurrentService(undefined);
-            setIsServiceActive(false);
-          } else
-            snaps.forEach(snap => {
-              setCurrentService(snap.data() as IService);
-              setCurrentServiceRef(snap.ref);
-              setCurrentServiceId(snap.id);
-              setIsServiceActive(true);
-            });
-        },
-        err => console.error('ERROR IN RETRIEVING SERVICE: ', err)
-      );
+      if (needsLive) {
+        unsubscribeService = getServiceRef().onSnapshot(updateService, err => {
+          console.error('ERROR IN RETRIEVING SERVICE: ', err);
+        });
+      } else {
+        console.log('HERE');
+        getServiceRef()
+          .get()
+          .then(updateService)
+          .catch(err => {
+            console.error('ERROR IN RETRIEVING SERVICE: ', err);
+          });
+      }
     } else {
       setCurrentService(undefined);
       setIsServiceActive(undefined);
       setCurrentServiceId('');
     }
     return () => {
-      unsubscribeService();
+      if (needsLive) unsubscribeService();
     };
-  }, [authPhase]);
+  }, [authPhase, needsLive]);
 
   return (
     <ServiceContext.Provider
@@ -66,13 +82,5 @@ const ServiceContextProvider: React.FunctionComponent = ({ children }) => {
     </ServiceContext.Provider>
   );
 };
-
-// const withServiceContext = (BaseComponent: React.FunctionComponent) => (
-//   props: any
-// ) => (
-//   <ServiceContextProvider>
-//     <BaseComponent {...props} />
-//   </ServiceContextProvider>
-// );
 
 export default ServiceContextProvider;

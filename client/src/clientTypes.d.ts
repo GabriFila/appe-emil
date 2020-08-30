@@ -5,4 +5,6 @@ export interface IRoleRouteInfo {
   path: string;
   component: React.FunctionComponent;
   title: string;
+  needServiceLive: boolean;
+  needStorageLive: boolean;
 }

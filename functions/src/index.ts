@@ -286,7 +286,7 @@ export const onCourseDelete = functions
   .firestore.document('sagre/{sagraId}/services/{serviceId}/courses/{courseId}')
   .onUpdate((change, ctx) => {
     const deletedStatus: CourseStatus = 'deleted';
-    if (change.after.data().status !== deletedStatus) return;
+    if (change.after.data().status !== deletedStatus) return false;
     else {
       const course = change.after.data() as IDBCourse;
       const sagraId = ctx.params.sagraId;
