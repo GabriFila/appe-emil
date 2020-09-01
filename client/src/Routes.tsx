@@ -11,6 +11,7 @@ import WaiterPage from './components/waiter/WaiterPage';
 import KitchenPage from './components/kitchen/KitchenPage';
 import { IRoleRouteInfo } from './clientTypes';
 import HubPage from './components/hub/HubPage';
+import CounterPage from './components/CounterPage';
 
 export enum RoleName {
   Admin = 'admin',
@@ -21,7 +22,8 @@ export enum RoleName {
   KitchenBar = 'cucina-bar',
   KitchenFood = 'cucina-cibo',
   Waiter = 'sala',
-  Hub = 'smazzo'
+  Hub = 'smazzo',
+  Counter = 'contatore'
 }
 
 export const ROUTE_ROLES: IRoleRouteInfo[] = [
@@ -30,8 +32,8 @@ export const ROUTE_ROLES: IRoleRouteInfo[] = [
     requiredRole: RoleName.Admin,
     path: '/admin',
     component: AdminPage,
-    needServiceLive: false,
-    needStorageLive: false
+    needServiceLive: true,
+    needStorageLive: true
   },
   {
     title: 'Cassa',
@@ -39,7 +41,7 @@ export const ROUTE_ROLES: IRoleRouteInfo[] = [
     path: '/cassa',
     component: CashRegisterPage,
     needServiceLive: false,
-    needStorageLive: false
+    needStorageLive: true
   },
   {
     title: 'Cassa bar',
@@ -47,7 +49,7 @@ export const ROUTE_ROLES: IRoleRouteInfo[] = [
     path: '/cassaBar',
     component: InstantCashRegisterPage,
     needServiceLive: false,
-    needStorageLive: false
+    needStorageLive: true
   },
   {
     title: 'Cucina primi',
@@ -96,6 +98,14 @@ export const ROUTE_ROLES: IRoleRouteInfo[] = [
     component: HubPage,
     needServiceLive: false,
     needStorageLive: false
+  },
+  {
+    title: 'Contatore',
+    requiredRole: RoleName.Counter,
+    path: '/contatore',
+    component: CounterPage,
+    needServiceLive: false,
+    needStorageLive: false
   }
 ];
 
@@ -116,7 +126,6 @@ const Routes: React.FunctionComponent = () => {
           component={component}
         />
       ))}
-
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route path="/">
