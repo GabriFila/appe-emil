@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'"
+    />
+    <title>Endless Summer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+  </head>
+  <body>
+    <div id="first-section">
+      <h2 id="title">Endless Summer</h2>
+    </div>
+
+    <div id="second-section">
+      <p id="info-text">Al momento i posti disponibili sono:</p>
+
+      <h1 id="remaining-places"></h1>
+    </div>
+    <img src="event.jpg" />
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyD7O5PLahPpA7R-2FVzdxKv0NJoCbkV7r4",
+        authDomain: "appe-emil.firebaseapp.com",
+        databaseURL: "https://appe-emil.firebaseio.com",
+        projectId: "appe-emil",
+        storageBucket: "appe-emil.appspot.com",
+        messagingSenderId: "683727025427",
+        appId: "1:683727025427:web:b3154bf6a08548671d16e6",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="index.js"></script>
+  </body>
+</html>

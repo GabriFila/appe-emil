@@ -1,0 +1,78 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+*::selection {
+  background-color: rgba(71, 40, 64, 0.438);
+}
+
+:root {
+  --text-color: rgb(56, 56, 56);
+  --text-color-grad: rgb(56, 56, 56, 0.75);
+  --main-color: rgb(255, 228, 27);
+  --main-color-grad: rgb(255, 228, 27, 0.75);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#title {
+  margin: 80px 10px;
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--text-color);
+}
+
+#info-text {
+  padding: 60px 40px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+#remaining-places {
+  text-align: center;
+  font-size: 8rem;
+  color: var(--text-color);
+  z-index: 200;
+}
+
+#first-section {
+  flex: 1;
+  background-color: var(--main-color);
+}
+
+#second-section {
+  flex: 9;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-color: var(--main-color);
+  background-image: url("/event.jpg");
+  background-image: linear-gradient(
+      to bottom,
+      var(--main-color),
+      var(--text-color-grad) /* rgba(117, 19, 93, 0.73) */
+    ),
+    url("/event.jpg");
+}
+
+img {
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+  height: 70vh;
+  z-index: -100;
+  display: none;
+}
