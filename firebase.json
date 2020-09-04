@@ -39,7 +39,7 @@
       ]
     },
     {
-      "site": "gvnetwork",
+      "site": "gvnetwork1",
       "public": "peopleViewer",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
