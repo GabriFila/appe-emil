@@ -10,7 +10,12 @@
     {
       "site": "appe-emil",
       "public": "client/build",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/.history/**"
+      ],
       "rewrites": [
         {
           "source": "**",
@@ -41,7 +46,12 @@
     {
       "site": "gvnetwork1",
       "public": "peopleViewer",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/.history/**"
+      ],
       "rewrites": [
         {
           "source": "**",
