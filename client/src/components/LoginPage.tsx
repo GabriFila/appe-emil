@@ -33,6 +33,7 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
+type TLoginOutcome = 'wait' | 'success' | 'error';
 export default function LoginPage() {
   const classes = useStyle();
 
@@ -43,8 +44,7 @@ export default function LoginPage() {
   const [showPsw, setShowPsw] = useState(false);
 
   // login error
-  const [loginOutcome, setLoginOutcome] = useState('wait');
-
+  const [loginOutcome, setLoginOutcome] = useState<TLoginOutcome>('wait');
   const loginUser = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setEmailError('');
@@ -55,8 +55,7 @@ export default function LoginPage() {
       auth
         .signInWithEmailAndPassword(email, psw)
         .then(res => {
-          setLoginOutcome('scess');
-          // history.push('/admin');
+          setLoginOutcome('success');
         })
         .catch(err => {
           console.error(err.message);
@@ -99,7 +98,10 @@ export default function LoginPage() {
             type={showPsw ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
-            onChange={e => setPsw(e.target.value)}
+            onChange={e => {
+              setPsw(e.target.value);
+              if (loginOutcome === 'error') setLoginOutcome('wait');
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
