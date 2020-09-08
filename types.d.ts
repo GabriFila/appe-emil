@@ -26,7 +26,7 @@ export interface IOrderCourse extends ICourse {
 }
 
 export interface IService {
-  start: Date | null;
+  start: firebase.firestore.Timestamp | null;
   end: Date | null;
   totalRevenue: number;
   totalInstantRevenue: number;
@@ -71,7 +71,7 @@ export interface IDBCourse extends ICourse {
   orderNum: number;
   status: CourseStatus;
   note: string;
-  tableNum:number;
+  tableNum: number;
 }
 
 interface IInstantOrder {
